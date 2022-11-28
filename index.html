@@ -19,8 +19,8 @@
 		<section class="menuBarContainer">
 			<div class="menuBar">
 				<a class="menuBarItem" id="newProject" title="Kliknij, aby utworzyć nowy projekt"><i class="fa-solid fa-file-circle-plus fa-xl"></i>&nbsp;Nowy</a>
-				<a class="menuBarItem" id="loadProject" title="Kliknij, aby wczytać projekt"><i class="fa-solid fa-file-arrow-down fa-xl"></i>&nbsp;Wczytaj</a>
-				<a class="menuBarItem" id="saveProject" title="Kliknij, aby zapisać projekt"><i class="fa-solid fa-file-arrow-up fa-xl"></i>&nbsp;Zapisz</a>
+				<a class="menuBarItem" id="loadProject" title="Kliknij, aby wczytać projekt"><i class="fa-solid fa-file-arrow-up fa-xl"></i>&nbsp;Wczytaj</a>
+				<a class="menuBarItem" id="saveProject" title="Kliknij, aby zapisać projekt"><i class="fa-solid fa-file-arrow-down fa-xl"></i>&nbsp;Zapisz</a>
 				<a class="menuBarItem" id="help" title="Kliknij, aby przejść"><i class="fa-solid fa-circle-info fa-xl"></i>&nbsp;Pomoc</a>
 			</div>
 			<div class="menuBar">
@@ -77,7 +77,7 @@
 						{
 							description: 'Plik blokowy',
 							accept: {
-								'text/plain': ['.blocks'],
+								'text/plain': ['.blocks']
 							},
 						},
 					],
@@ -89,9 +89,20 @@
 			};
 
 			async function loadFile() {
-				[fileHandle] = await window.showOpenFilePicker({
-					startIn: 'desktop'
-				});
+                const options = {
+                    startIn: 'desktop',
+                    types: [
+                        {
+                            description: 'Plik blokowy',
+                            accept: {
+                                'text/plain': ['.blocks']
+                            }
+                        },
+                    ],
+                    excludeAcceptAllOption: true,
+                    multiple: false
+                };
+				[fileHandle] = await window.showOpenFilePicker(options);
 				file = await fileHandle.getFile();
 				contents = await file.text();
 				document.getElementById("blocks").innerHTML = contents;
