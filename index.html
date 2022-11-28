@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<link rel="icon" type="image/x-icon" href="assets/images/favicon.ico" />
+	<title>Blocks IT | Wybierz</title>
+	<meta name="description" content="" />
+	<meta name="keywords" content="blocks it, algorytm, etapy algorytmu, schemat blokowy, schemat, projekt, programowanie, program, system, lista kroków, kod, graficzny kod, kształty, geometryczne, figury, diagram, block diagram, flowchart" />
+	<meta name="author" content="Luki" />
+	<meta name="copyright" content="Copyright Blocks IT 2022" />
+
+	<link rel="stylesheet" type="text/css" href="assets/styles/all.css">
+	<script src="https://kit.fontawesome.com/ac1b82ff7f.js" crossorigin="anonymous"></script>
+</head>
+
+
+	<body>
+		<section class="menuBarContainer">
+			<div class="menuBar">
+				<a class="menuBarItem" id="newProject" title="Kliknij, aby utworzyć nowy projekt"><i class="fa-solid fa-file-circle-plus fa-xl"></i>&nbsp;Nowy</a>
+				<a class="menuBarItem" id="loadProject" title="Kliknij, aby wczytać projekt"><i class="fa-solid fa-file-arrow-down fa-xl"></i>&nbsp;Wczytaj</a>
+				<a class="menuBarItem" id="saveProject" title="Kliknij, aby zapisać projekt"><i class="fa-solid fa-file-arrow-up fa-xl"></i>&nbsp;Zapisz</a>
+				<a class="menuBarItem" id="help" title="Kliknij, aby przejść"><i class="fa-solid fa-circle-info fa-xl"></i>&nbsp;Pomoc</a>
+			</div>
+			<div class="menuBar">
+				<a class="menuBarItem" id="theme" title="Kliknij, aby zmienić na ciemny"><i class="fa-solid fa-circle-half-stroke fa-xl"></i></a>
+			</div>
+		</section>
+		<section class="sideBarContainer">
+
+		</section>
+		<section class="diagramContainer">
+			
+			
+			<div id="blocks"></div>
+		</section>
+
+
+
+
+
+
+
+		<script>
+			let lastFile;
+			let fileHandle;
+			let file;
+			let contents;
+
+			document.getElementById("newProject").addEventListener("click", function (event) {
+				createFile();
+			});
+
+			document.getElementById("loadProject").addEventListener("click", function (event) {
+				loadFile();
+			});
+
+			document.getElementById("saveProject").addEventListener("click", function (event) {
+				saveFile(fileHandle, contents);
+			});
+
+			document.getElementById("help").addEventListener("click", function (event) {
+				help();
+			});
+
+
+
+
+
+
+			async function createFile() {
+				const options = {
+					startIn: 'desktop',
+					suggestedName: 'algorytm.blocks',
+					types: [
+						{
+							description: 'Plik blokowy',
+							accept: {
+								'text/plain': ['.blocks'],
+							},
+						},
+					],
+				};
+				fileHandle = await window.showSaveFilePicker(options);
+				file = await fileHandle.getFile();
+				contents = "test";
+				document.getElementById("blocks").innerHTML = contents;
+			};
+
+			async function loadFile() {
+				[fileHandle] = await window.showOpenFilePicker({
+					startIn: 'desktop'
+				});
+				file = await fileHandle.getFile();
+				contents = await file.text();
+				document.getElementById("blocks").innerHTML = contents;
+			};
+
+			async function saveFile(fileHandle, contents) {
+				if (typeof fileHandle !== "undefined") {
+					if ((await fileHandle.queryPermission()) === "granted") {
+						const writable = await fileHandle.createWritable();
+						await writable.write(contents);
+						await writable.close();
+					} else {
+						alert("Brak uprawnień w podanej lokalizacji.");
+					};
+				} else {
+					alert("Najpierw wczytaj lub utwórz projekt.");
+				};
+			};
+
+			function help() {
+				alert("help");
+			};
+
+
+
+
+
+
+
+
+
+
+			/*
+			document.body.addEventListener("click", function (e) {
+				if (e.target.classList.contains("block")) {
+					saveFile(fileHandle, contents);
+				};
+			});
+			*/
+
+            const onConfirmRefresh = function (event) {
+                event.preventDefault();
+                return event.returnValue = "Napewno chcesz odświerzyć stronę?";
+			};
+
+			window.addEventListener("beforeunload", onConfirmRefresh, { capture: true });
+
+
+		</script>
+		<script>
+			try {
+				document.body.dataset.theme = localStorage.getItem('theme')
+			} catch (e) {
+				document.body.dataset.theme = null
+			};
+		</script>
+		<script src="assets/scripts/themes.js"></script>
+	</body>
+</html>

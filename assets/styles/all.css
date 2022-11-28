@@ -1,0 +1,93 @@
+@import url('https://fonts.googleapis.com/css2?family=Comfortaa:wght@300;400;500;600;700&display=swap');
+
+
+:root {
+    --background-color: #282828;
+    --background-color-dark: #1b1b1b;
+    --font-color: #d3d3d3;
+    --font-color-hover: #fff;
+    --font-default: 'Comfortaa';
+    --transition: 100ms ease-in-out;
+    --shadows: 0 0 5px 1px rgba(0, 0, 0, 0.4);
+    --shadows-text: 1px 1px rgba(0, 0, 0, 0.4);
+    --blur: blur(10px);
+}
+
+
+body[data-theme=dark] {
+    --background-color: #fff;
+    --background-color-dark: #d3d3d3;
+    --blur: blur(10px);
+    --font-color: #323232;
+    --font-color-hover: #1b1b1b;
+    --shadows: 0 0 5px 1px rgba(180, 180, 180, 0.4);
+    --shadows-text: 1px 1px rgba(180, 180, 180, 0.4);
+}
+
+body:not([data-theme=dark]) .theme-dark {
+    display: none;
+}
+
+body[data-theme=dark] .theme-light {
+    display: none;
+}
+
+
+
+
+
+
+
+
+
+
+
+body {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    background-color: var(--background-color);
+    color: var(--font-color);
+    font-family: var(--font-default);
+    font-weight: 700;
+    cursor: context-menu;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+}
+
+
+section {
+
+}
+
+
+.menuBarContainer {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-content: center;
+    justify-content: space-between;
+    align-items: center;
+    padding: 11px 2px;
+    background-color: var(--background-color-dark);
+    box-shadow: var(--shadows);
+}
+
+
+.menuBarItem {
+    padding: 8px 8px;
+    border-radius: 5px;
+    cursor: pointer;
+    text-shadow: var(--shadows-text);
+    transition: var(--transition);
+}
+
+.menuBarItem:hover {
+    color: var(--font-color-hover);
+    background-color: var(--background-color);
+    transition: var(--transition);
+}
+
+
+
