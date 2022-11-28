@@ -47,6 +47,7 @@
 			let fileHandle;
 			let file;
 			let contents;
+			let writable;
 
 			document.getElementById("newProject").addEventListener("click", function (event) {
 				createFile();
@@ -77,15 +78,21 @@
 						{
 							description: 'Plik blokowy',
 							accept: {
-								'text/plain': ['.blocks']
+								'text/xml': ['.blocks', '.xml'],
 							},
 						},
 					],
-				};
-				fileHandle = await window.showSaveFilePicker(options);
-				file = await fileHandle.getFile();
-				contents = "test";
-				document.getElementById("blocks").innerHTML = contents;
+                };
+                [fileHandle] = await window.showSaveFilePicker(options);
+                if ((await fileHandle.queryPermission()) === "granted") {
+                    file = await fileHandle.getFile();
+                    writable = await fileHandle.createWritable();
+                    await writable.write("test123");
+                    await writable.close();
+                    document.getElementById("blocks").innerHTML = await file.text();
+                } else {
+                    alert("Brak uprawnień w podanej lokalizacji.");
+                };
 			};
 
 			async function loadFile() {
@@ -95,7 +102,7 @@
                         {
                             description: 'Plik blokowy',
                             accept: {
-                                'text/plain': ['.blocks']
+                                'text/xml': ['.blocks', '.xml'],
                             }
                         },
                     ],
@@ -106,12 +113,13 @@
 				file = await fileHandle.getFile();
 				contents = await file.text();
 				document.getElementById("blocks").innerHTML = contents;
+                return fileHandle;
 			};
 
 			async function saveFile(fileHandle, contents) {
 				if (typeof fileHandle !== "undefined") {
 					if ((await fileHandle.queryPermission()) === "granted") {
-						const writable = await fileHandle.createWritable();
+						writable = await fileHandle.createWritable();
 						await writable.write(contents);
 						await writable.close();
 					} else {
