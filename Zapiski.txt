@@ -1,0 +1,122 @@
+
+<->----------------------<-> Luki <->----------------------<->
+  ╔═╗╔═╗╦  ╦╦╔═╔═╗╔═╗ ╦╔═╗          ╔╗ ╦  ╔═╗╔═╗╦╔═╔═╗  ╦╔╦╗  
+  ╠═╣╠═╝║  ║╠╩╗╠═╣║   ║╠═╣          ╠╩╗║  ║ ║║  ╠╩╗╚═╗  ║ ║   
+  ╩ ╩╩  ╩═╝╩╩ ╩╩ ╩╚═╝╚╝╩ ╩          ╚═╝╩═╝╚═╝╚═╝╩ ╩╚═╝  ╩ ╩   
+<->----------------------<-> V. 0 <->----------------------<->
+
+
+
+
+
+
+
+
+<->----------------------<->
+       ROZKŁAD STRONY       
+<->----------------------<->
+
+Menu:
+- Zapisz
+- Wczytaj
+- 
+
+- Zmiana motywu
+
+
+
+
+
+
+
+
+<->-----------------------<->
+          ZAŁOŻENIA          
+<->-----------------------<->
+
+1. Aplikacja ma pozwalać na graficzne tworzenie schematów blokowych.
+2. Aplikacja ma pozwalać w 100% sprawdzić poprawnosć schematu przez kompilację programu i wyświetlenie jego działania w tzw. konsoli.
+
+
+
+
+
+
+
+
+<->-----------------------<->
+        FORMAT ZAPISU        
+<->-----------------------<->
+
+Wszystko w pliku .blocks
+
+Zmienne ogólne:
+- ostatnia modyfikacja (modified)
+
+Zmienne bloków (BLOCK):
+- położenie (x, y)
+- wysokość i szerokość
+- typ (koło, kwadrat, rąb...)
+- wartość (tekst w środku bloku)
+- 
+
+Zmienne połączeń (LINE):
+- położenie 1 (x, y)
+- położenie 2 (x, y)
+- położenie 3 (top, right, bottom, left)
+- typ (strzałka, bez strzałki)
+- 
+
+Zmienne tekstów (TEXT):
+- położenie (x, y)
+- 
+
+
+
+
+
+
+
+
+<->-----------------------<->
+        SPIS WARTOŚCI        
+<->-----------------------<->
+
+
+Owal (blok graniczny):
+- start
+- stop
+
+Prostokąt (blok operacyjny):
+- zmienna = wartość
+- zmienna = (- + * / %) wartość
+- zmienna (++ --)
+
+Równoległobok (blok wejścia/wyjścia):
+- podaj/wprowadź/wczytaj
+- wypisz zmienna
+
+Rąb (blok decydujący/warunkowy):
+- zmienna (> >= = == != < <=) wartość
+
+Koło (łącznik wewnętrzny):
+- numer
+
+
+
+
+
+
+
+
+<->-----------------------<->
+         SPRAWDZENIE         
+<->-----------------------<->
+
+
+
+
+
+
+
+
