@@ -31,15 +31,16 @@
 			
 		</section>
 		<section class="diagramContainer">
-			
-			
+
+
 			<div id="blocks"></div>
 		</section>
 		<section class="consoleBarContainer">
 			
-		</section> 
-
-
+		</section>
+		
+		<div id="drag"><p><i class="fa-solid fa-file-arrow-up fa-xl"></i>&nbsp;Upuść plik!</p></div>
+		
 
 
 
@@ -75,12 +76,12 @@
 			async function createFile() {
 				const options = {
 					startIn: "desktop",
-					suggestedName: "algorytm.blocks",
+					suggestedName: "Algorytm.blocks",
 					types: [
 						{
 							description: "Plik blokowy",
 							accept: {
-								"text/xml": [".blocks", ".xml"],
+								"text/xml": [".blocks"],
 							},
 						},
 					],
@@ -89,24 +90,26 @@
                 fileHandle = await window.showSaveFilePicker(options);
                 if ((await fileHandle.queryPermission()) === "granted") {
                     writable = await fileHandle.createWritable();
-                    await writable.write("Start");
+                    await writable.write(LZString.compress("Test <br/> to jest <br/>ąęóąśłżźćń"));
                     await writable.close();
                     file = await fileHandle.getFile();
-                    document.getElementById("blocks").innerHTML = await file.text();
+                    document.getElementById("blocks").innerHTML = LZString.decompress(await file.text());
+                    document.title = ("Blocks IT | " + fileHandle.name);
+                    return fileHandle;
                 } else {
                     alert("Brak uprawnień w podanej lokalizacji.");
                     return;
                 }
 			};
 
-			async function loadFile() {
+			async function loadFile() { 
                 const options = {
                     startIn: "desktop",
                     types: [
                         {
                             description: "Plik blokowy",
                             accept: {
-                                "text/xml": [".blocks", ".xml"],
+                                "text/xml": [".blocks"],
                             }
                         },
                     ],
@@ -119,7 +122,8 @@
                     return;
                 };
 				file = await fileHandle.getFile();
-                document.getElementById("blocks").innerHTML = await file.text();
+                document.getElementById("blocks").innerHTML = LZString.decompress(await file.text());
+                document.title = ("Blocks IT | " + fileHandle.name);
                 return fileHandle;
 			};
 
@@ -127,8 +131,7 @@
                 if (typeof fileHandle !== "undefined" && validate_extention(fileHandle) != false) {
 					if ((await fileHandle.queryPermission()) === "granted") {
                         writable = await fileHandle.createWritable();
-                        console.log(document.getElementById("blocks").innerHTML);
-                        await writable.write(document.getElementById("blocks").innerHTML);
+                        await writable.write(LZString.compress(document.getElementById("blocks").innerHTML));
                         await writable.close();
 					} else {
                         alert("Brak uprawnień w podanej lokalizacji.");
@@ -141,12 +144,15 @@
 			};
 
 
+
             window.addEventListener("dragover", (e) => {
-                e.preventDefault();
-            });
+				e.preventDefault();
+                document.getElementById("drag").style.zIndex = "100";
+			});
 
             window.addEventListener("drop", async (e) => {
                 e.preventDefault();
+                document.getElementById("drag").style.zIndex = "-20"; //dodaj to jeszcze jak nie tylko drop...
 
                 const fileHandlesPromises = [...e.dataTransfer.items]
                     .filter((item) => item.kind === "file")
@@ -162,7 +168,7 @@
                         alert("Wgraj plik z rozszerzeniem .blocks!");
 					} else {
                         file = await fileHandle.getFile();
-                        document.getElementById("blocks").innerHTML = await file.text();
+                        document.getElementById("blocks").innerHTML = LZString.decompress(await file.text());
                         return fileHandle;
                     };
                 };
@@ -219,6 +225,7 @@
 				document.body.dataset.theme = null;
 			};
 		</script>
-		<script src="assets/scripts/themes.js"></script>
+		<script language="javascript" src="assets/scripts/themes.js"></script>
+		<script language="javascript" src="assets/scripts/lz-string.js"></script>
 	</body>
 </html>
