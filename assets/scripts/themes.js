@@ -6,7 +6,7 @@ function changeTheme() {
     const typeTheme = currentTheme === "dark" ? "light" : "dark";
     document.body.setAttribute('data-theme', typeTheme);
     
-    if (typeTheme == "light") {
+    if (currentTheme == "light") {
         document.getElementById("theme").title = "Kliknij, aby zmienić na ciemny";
     } else {
         document.getElementById("theme").title = "Kliknij, aby zmienić na jasny";
