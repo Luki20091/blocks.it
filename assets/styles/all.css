@@ -134,6 +134,7 @@ section {
 
 
 #drag {
+    background-color: #000;
     display: flex;
     flex-direction: row;
     flex-wrap: nowrap;
