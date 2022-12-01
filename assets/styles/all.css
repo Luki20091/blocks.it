@@ -113,6 +113,7 @@ section {
 
 
 .diagramContainer {
+    background-color: var(--background-color);
     display: flex;
     flex-direction: row;
     flex-wrap: nowrap;
@@ -126,7 +127,6 @@ section {
     width: 100%;
     height: 100%;
     overflow: auto;
-    background-color: var(--background-color);
     z-index: 40;
 }
 
@@ -135,8 +135,6 @@ section {
 
 #drag {
     background-color: #000;
-    width: 100%;
-    height: 100%;
     display: flex;
     flex-direction: row;
     flex-wrap: nowrap;
@@ -148,5 +146,7 @@ section {
     left: 50%;
     transform: translate(-50%, -50%);
     opacity: 80%;
+    width: 100%;
+    height: 100%;
     z-index: -20;
 }
