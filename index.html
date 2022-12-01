@@ -49,7 +49,6 @@
 		<script>
 			let fileHandle;
 			let file;
-			let contents;
 			let writable;
 
 			document.getElementById("newProject").addEventListener("click", function (event) {
@@ -169,6 +168,7 @@
 					} else {
                         file = await fileHandle.getFile();
                         document.getElementById("blocks").innerHTML = LZString.decompress(await file.text());
+                	document.title = ("Blocks IT | " + fileHandle.name);
                         return fileHandle;
                     };
                 };
