@@ -143,16 +143,7 @@
 			};
 
 
-
-            window.addEventListener("dragover", (e) => {
-				e.preventDefault();
-                document.getElementById("drag").style.zIndex = "100";
-			});
-
             window.addEventListener("drop", async (e) => {
-                e.preventDefault();
-                document.getElementById("drag").style.zIndex = "-20"; //dodaj to jeszcze jak nie tylko drop...
-
                 const fileHandlesPromises = [...e.dataTransfer.items]
                     .filter((item) => item.kind === "file")
                     .map((item) => item.getAsFileSystemHandle());
@@ -168,11 +159,32 @@
 					} else {
                         file = await fileHandle.getFile();
                         document.getElementById("blocks").innerHTML = LZString.decompress(await file.text());
-                	document.title = ("Blocks IT | " + fileHandle.name);
+                		document.title = ("Blocks IT | " + fileHandle.name);
                         return fileHandle;
                     };
                 };
             });
+
+			['dragenter', 'dragover'].forEach(eventName => {
+				window.addEventListener(eventName, highlight, false)
+			});
+
+            ['dragleave', 'drop'].forEach(eventName => {
+                document.getElementById("drag").addEventListener(eventName, unhighlight, false)
+            });
+
+            function highlight(e) {
+                e.preventDefault();
+                document.getElementById("drag").style.zIndex = "100";
+			};
+
+            function unhighlight(e) {
+                e.preventDefault();
+                document.getElementById("drag").style.zIndex = "-20";
+			};
+
+
+
 
 
 
