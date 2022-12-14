@@ -54,11 +54,11 @@ Zmienne ogólne:
 - ostatnia modyfikacja (modified)
 
 Zmienne bloków (BLOCK):
+- typ (koło, kwadrat, rąb...)
 - położenie (x, y)
 - wysokość i szerokość
-- typ (koło, kwadrat, rąb...)
 - wartość (tekst w środku bloku)
-- 
+<div class="block typ" style="top: ypx; left: xpx; height: wysokośćpx; width: szerokośćpx;">>wartość</div>
 
 Zmienne połączeń (LINE):
 - położenie 1 (x, y)
